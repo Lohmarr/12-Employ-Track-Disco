@@ -1,4 +1,4 @@
-viewDepartments() = async () => {
+const viewDepartments = async () => {
     const [departments] = await connection.query(`
        SELECT
          department.id AS ID, department.name as Name
@@ -6,7 +6,7 @@ viewDepartments() = async () => {
         console.table(departments);
 }
 
-viewRoles() = async () => {
+const viewRoles = async () => {
     const [roles] = await connection.query(`
         SELECT 
           role.id AS ID, role.title AS Title, 
