@@ -1,3 +1,5 @@
+const connection = require('../config/connection')
+
 // View Departments
 const viewDepartments = async () => {
     const [departments] = await connection.promise().query(`

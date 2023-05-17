@@ -5,8 +5,6 @@ let roleChoices = [];
 let departmentChoices = [];
 let managerChoices = [];
 
- console.log(connection)
-
  // Define a function to handle errors
 const handleErrors = (error) => {
   console.error(`Error executing query: ${error}`);
