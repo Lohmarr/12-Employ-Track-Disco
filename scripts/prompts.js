@@ -140,7 +140,13 @@ async function mainMenu(
         process.exit(0);
         break;
     }
-    mainMenu(connection, employeeChoices, roleChoices);
+    mainMenu(
+      connection,
+      employeeChoices,
+      roleChoices,
+      departmentChoices,
+      managerChoices
+    );
   } catch (err) {
     console.error(err);
   }
