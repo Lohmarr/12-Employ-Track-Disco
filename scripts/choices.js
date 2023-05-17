@@ -1,64 +1,94 @@
 const connection = require("../config/connection");
 
-const employeeChoices = [];
-const roleChoices = [];
-const departmentChoices = [];
-const managerChoices = [];
+let employeeChoices = [];
+let roleChoices = [];
+let departmentChoices = [];
+let managerChoices = [];
 
-// Put employees in array
+ console.log(connection)
+
+ // Define a function to handle errors
+const handleErrors = (error) => {
+  console.error(`Error executing query: ${error}`);
+}
+
+ // Put employees in array
 (async () => {
-  const [rows] = await connection.query(
-    'SELECT id, CONCAT(first_name, " ", last_name) AS name FROM employee'
-  );
-  rows.forEach((employee) => {
-    employeeChoices.push({
-      value: employee.id,
-      name: employee.name,
+  try {
+    const [rows] = await connection.promise().query(
+      "SELECT id, CONCAT(first_name, ' ', last_name) AS name FROM employee"
+    );
+    rows.forEach((employee) => {
+      employeeChoices.push({
+        value: employee.id,
+        name: employee.name,
+      });
     });
-  });
+  } catch (error) {
+    handleErrors(error)
+  }
 })();
 
-// Put roles in array
+ // Put roles in array
 (async () => {
-  const [rows] = await connection.query("SELECT id, title FROM role");
-  rows.forEach((role) => {
-    roleChoices.push({
-      value: role.id,
-      name: role.title,
+  try {
+    const [rows] = await connection.promise().query("SELECT id, title FROM role");
+    rows.forEach((role) => {
+      roleChoices.push({
+        value: role.id,
+        name: role.title,
+      });
     });
-  });
+  } catch (error) {
+    handleErrors(error)
+  }
 })();
 
-// Put departments in array
+ // Put departments in array
 (async () => {
-  const [rows] = await connection.query("SELECT id, name FROM department");
-  rows.forEach((department) => {
-    departmentChoices.push({
-      value: department.id,
-      name: department.name,
+  try {
+    const [rows] = await connection.promise().query("SELECT id, name FROM department");
+    rows.forEach((department) => {
+      departmentChoices.push({
+        value: department.id,
+        name: department.name,
+      });
     });
-  });
+  } catch (error) {
+    handleErrors(error)
+  }
 })();
 
-// Put managers in array
+ // Put managers in array
 (async () => {
-  const [rows] = await connection.query(`
-    SELECT 
-    DISTINCT e.id, CONCAT(e.first_name, ' ', e.last_name) AS name
-    FROM employee e
-    WHERE e.manager_id IS NULL
-  `);
-  rows.forEach((manager) => {
-    managerChoices.push({
-      value: manager.id,
-      name: manager.name,
+  try {
+    const [rows] = await connection.promise().query(`
+      SELECT 
+      DISTINCT e.id, CONCAT(e.first_name, ' ', e.last_name) AS name
+      FROM employee e
+      WHERE e.manager_id IS NULL
+    `);
+    rows.forEach((manager) => {
+      managerChoices.push({
+        value: manager.id,
+        name: manager.name,
+      });
     });
-  });
+  } catch (error) {
+    handleErrors(error)
+  }
 })();
 
-module.exports = {
-  employeeChoices,
-  roleChoices,
-  departmentChoices,
-  managerChoices,
-};
+ // Wait for all the queries to complete before exporting the objects
+Promise.all([employeeChoices, roleChoices, departmentChoices, managerChoices])
+  .then(() => {
+    module.exports = {
+      employeeChoices,
+      roleChoices,
+      departmentChoices,
+      managerChoices,
+    };
+  })
+  .catch((error) => {
+    handleErrors(error)
+  });
