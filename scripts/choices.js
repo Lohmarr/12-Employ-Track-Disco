@@ -5,17 +5,19 @@ let roleChoices = [];
 let departmentChoices = [];
 let managerChoices = [];
 
- // Define a function to handle errors
+// Define a function to handle errors
 const handleErrors = (error) => {
   console.error(`Error executing query: ${error}`);
-}
+};
 
- // Put employees in array
+// Put employees in array
 (async () => {
   try {
-    const [rows] = await connection.promise().query(
-      "SELECT id, CONCAT(first_name, ' ', last_name) AS name FROM employee"
-    );
+    const [rows] = await connection
+      .promise()
+      .query(
+        "SELECT id, CONCAT(first_name, ' ', last_name) AS name FROM employee"
+      );
     rows.forEach((employee) => {
       employeeChoices.push({
         value: employee.id,
@@ -23,14 +25,16 @@ const handleErrors = (error) => {
       });
     });
   } catch (error) {
-    handleErrors(error)
+    handleErrors(error);
   }
 })();
 
- // Put roles in array
+// Put roles in array
 (async () => {
   try {
-    const [rows] = await connection.promise().query("SELECT id, title FROM role");
+    const [rows] = await connection
+      .promise()
+      .query("SELECT id, title FROM role");
     rows.forEach((role) => {
       roleChoices.push({
         value: role.id,
@@ -38,14 +42,16 @@ const handleErrors = (error) => {
       });
     });
   } catch (error) {
-    handleErrors(error)
+    handleErrors(error);
   }
 })();
 
- // Put departments in array
+// Put departments in array
 (async () => {
   try {
-    const [rows] = await connection.promise().query("SELECT id, name FROM department");
+    const [rows] = await connection
+      .promise()
+      .query("SELECT id, name FROM department");
     rows.forEach((department) => {
       departmentChoices.push({
         value: department.id,
@@ -53,11 +59,11 @@ const handleErrors = (error) => {
       });
     });
   } catch (error) {
-    handleErrors(error)
+    handleErrors(error);
   }
 })();
 
- // Put managers in array
+// Put managers in array
 (async () => {
   try {
     const [rows] = await connection.promise().query(`
@@ -73,20 +79,13 @@ const handleErrors = (error) => {
       });
     });
   } catch (error) {
-    handleErrors(error)
+    handleErrors(error);
   }
 })();
 
- // Wait for all the queries to complete before exporting the objects
-Promise.all([employeeChoices, roleChoices, departmentChoices, managerChoices])
-  .then(() => {
-    module.exports = {
-      employeeChoices,
-      roleChoices,
-      departmentChoices,
-      managerChoices,
-    };
-  })
-  .catch((error) => {
-    handleErrors(error)
-  });
+module.exports = {
+  employeeChoices,
+  roleChoices,
+  departmentChoices,
+  managerChoices,
+};
