@@ -1,6 +1,5 @@
 const inquirer = require("inquirer");
 const consoleTable = require("console.table");
-
 const {
   viewDepartments,
   viewRoles,
@@ -37,28 +36,28 @@ async function mainMenu(
         ],
       },
     ])
-    .then(({ action }) => {
+    .then( async ({ action }) => {
       switch (action) {
         case "view_departments":
-          viewDepartments();
+          await viewDepartments();
           break;
         case "view_roles":
-          viewRoles();
+          await viewRoles();
           break;
         case "view_employees":
-          viewEmployees();
+          await viewEmployees();
           break;
         case "add_department":
-          addDepartment();
+          await addDepartment();
           break;
         case "add_role":
-          addRole();
+          await addRole();
           break;
         case "add_employee":
-          addEmployee();
+          await addEmployee();
           break;
         case "update_employee_role":
-          updateEmployee();
+          await updateEmployee();
           break;
         case "quit":
           console.log("Exiting the application...");

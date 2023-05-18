@@ -1,4 +1,11 @@
 const connection = require('../config/connection')
+const inquirer = require("inquirer");
+const {
+  employeeChoices,
+  roleChoices,
+  departmentChoices,
+  managerChoices,
+} = require("./choices");
 
 // View Departments
 const viewDepartments = async () => {
@@ -51,6 +58,7 @@ const addDepartment = async () => {
 
 // Add Role
 const addRole = async () => {
+  console.log('Department Array:', departmentChoices)
   const { roleTitle, salary, department } = await inquirer.prompt([
     {
       type: "input",
