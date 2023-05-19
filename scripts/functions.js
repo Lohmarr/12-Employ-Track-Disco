@@ -77,7 +77,7 @@ const addRole = async () => {
       choices: departmentChoices,
     },
   ]);
-  const roleQuery = `INSERT INTO role (title, salary, department_id) VALUES ("${roleTitle}", "${salary}", "${department.value}")`;
+  const roleQuery = `INSERT INTO role (title, salary, department_id) VALUES ("${roleTitle}", "${salary}", "${department}")`;
   await connection.promise().query(roleQuery);
   console.log(`Role "${roleTitle}" has been added!`);
 };
@@ -108,7 +108,7 @@ const addEmployee = async () => {
       choices: managerChoices,
     },
   ]);
-  const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${employeeAnswers.firstName}", "${employeeAnswers.lastName}", "${employeeAnswers.role.value}", "${employeeAnswers.manager.value}")`;
+  const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${employeeAnswers.firstName}", "${employeeAnswers.lastName}", "${employeeAnswers.role}", "${employeeAnswers.manager}")`;
   await connection.promise().query(query);
   console.log(
     `Employee ${employeeAnswers.firstName} ${employeeAnswers.lastName} has been added!`
@@ -131,7 +131,7 @@ const updateEmployee = async () => {
       choices: roleChoices,
     },
   ]);
-  const updateQuery = `UPDATE employee SET role_id = "${updateAnswers.newRole.value}" WHERE id = "${updateAnswers.employee.value}"`;
+  const updateQuery = `UPDATE employee SET role_id = "${updateAnswers.newRole}" WHERE id = "${updateAnswers.employee}"`;
   await connection.promise().query(updateQuery);
   console.log(
     `Employee ${updateAnswers.employee} has been updated with a new role!`
