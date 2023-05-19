@@ -17,6 +17,8 @@ Next, navigate to the  `employee-management-system`  directory and run the follo
 
 $ npm install
 
+Then, go into the db folder of the repository and run the SQL in both the schema.sql and seeds.sql. You can download MySQL Workbench to run the code, or utilize a VS Code extension.
+
 Finally, create a  `.env`  file in the root directory of the application and add your MySQL connection details as follows:
 
 DB_HOST=localhost
@@ -30,7 +32,7 @@ Make sure to replace  `localhost` ,  `root` ,  `password` , and  `employee_db`  
 
  To run the application, navigate to the repository's directory in your terminal or Git Bash and run the following command:
 
-$ npm start
+$ node index.js
 
 The application will display a list of options to choose from, including:
 
@@ -42,4 +44,4 @@ The application will display a list of options to choose from, including:
 
 Here is a video displaying the application's use:
 
-% TODO ![Walkthrough Video]()
+[Walkthrough Video](https://www.awesomescreenshot.com/video/17537697?key=053524d61d0c9f235e2acf3f6ed6c995)
